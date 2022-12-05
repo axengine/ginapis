@@ -1,0 +1,27 @@
+Env = "dev"
+
+[Api]
+  HttpListenAddr = "0.0.0.0:8080"
+  SignEnable = true
+  JWTSecret = "hmacSampleSecret"
+
+[Admin]
+  HttpListenAddr = "0.0.0.0:8081"
+  AuthEnable = true
+
+[Mysql]
+  ShowSQL = true
+  MaxOpenConn = 50
+  MaxIdleConn = 200
+  ConnMaxLifetime = 7200
+  [Mysql.Master]
+    Username = "root"
+    Password = "111111"
+    HostPort = "localhost:3306"
+    Database = "test"
+
+[Logger]
+  Addr = []
+  Module = "example"
+  Filename = "./log/logger.log"
+  Level = -1

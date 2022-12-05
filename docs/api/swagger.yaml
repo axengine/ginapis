@@ -1,0 +1,131 @@
+basePath: /
+definitions:
+  bean.Book:
+    properties:
+      author:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: number
+    type: object
+  bean.GetUserInfoReq:
+    properties:
+      uid:
+        type: integer
+    type: object
+  bean.GetUserInfoResp:
+    properties:
+      balance:
+        type: number
+    type: object
+  bean.ListBookReq:
+    properties:
+      author:
+        type: string
+      name:
+        type: string
+      page:
+        type: integer
+      size:
+        type: integer
+    required:
+    - page
+    - size
+    type: object
+  bean.LoginReq:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+    required:
+    - login
+    - password
+    type: object
+host: :8080
+info:
+  contact: {}
+  title: api server
+  version: 1.0.0
+paths:
+  /v1/book/list:
+    get:
+      consumes:
+      - application/json
+      description: 书籍查询
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: request param
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/bean.ListBookReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            items:
+              $ref: '#/definitions/bean.Book'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: 书籍查询
+      tags:
+      - API BOOK
+  /v1/login:
+    post:
+      consumes:
+      - application/json
+      description: login
+      parameters:
+      - description: request param
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/bean.LoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/bean.LoginReq'
+      summary: 登录
+      tags:
+      - API 登陆
+  /v1/user/info:
+    get:
+      consumes:
+      - application/json
+      description: 用户信息查询
+      parameters:
+      - description: request param
+        in: body
+        name: Request
+        required: true
+        schema:
+          $ref: '#/definitions/bean.GetUserInfoReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            $ref: '#/definitions/bean.GetUserInfoResp'
+      summary: 用户信息查询
+      tags:
+      - API
+swagger: "2.0"
